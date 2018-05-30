@@ -1,0 +1,35 @@
+<html>
+ <head>
+  <title> Menu </title>
+  <script src="https://simplycodingcourses.com/files/simplyjs/simply.js">
+</script>
+  <script>
+    function start(){
+    sjs.open();
+     var soundEffect = new Audio('Music/AS.mp3')
+      soundEffect.play();
+      soundEffect.loop = true;
+    
+     var menu_text = new sjs.Text("MENU",50,"white");
+
+     menu_text.centerH();
+
+     var startBtn = new sjs.Button("Start", function(){
+      alert("Arrow Keys To Move, Dodge The Spikes");
+      window.location = "game.html";
+      
+     });
+
+     startBtn.center();
+     var info_text = new sjs.Text("Created By Nolan Vo, Credits InGame",15,"white");
+     info_text.centerH();
+     info_text.bottom();
+
+    } //end start
+  </script>
+</head>
+<body onload="start()">
+  <h1> </h1>
+  <div id="target" style="margin:auto;background:black;"></div>
+ </body>
+</html>

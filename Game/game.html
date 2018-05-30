@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title> </title>
+  <script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+  <script>
+      function start(){ 
+      	sjs.open("target", 1400,900);
+      	var background = new sjs.Image('Images/Background.png');
+      	background.setSize(2800,1800);
+
+     	 var playM = new Audio('Music/AS.mp3');
+     	 playM.loop = true;
+         playM.volume = .8;
+         playM.play();
+
+     var credits = new sjs.Text("Credits: Images By Me, Code By Me, Music From newgrounds.com, and for simplycoding for making this possible.",40,"black");
+     credits.top();
+     credits.centerH();
+
+
+      	/// Player
+       	var Player = new sjs.Image('Images/1.png');
+       	Player.type = 'Player';
+       	Player.center();
+       	Player.setSize(70,70);
+       	Player.setGravity(6);
+       	Player.accel=.3500;
+       	Player.friction=.7;
+       	Player.noBounds= true;
+       	sjs.scrollable(Player,background,credits);
+
+       	var Frames = ["Images/1.png","Images/2.png","Images/3.png","Images/4.png"];
+       	var Drames = ["Images/a.png","Images/b.png","Images/c.png","Images/d.png"];
+       	var Max = 0;
+       	var Maxx = 0;
+       	var right = true;
+       	sjs.keyDown(RIGHT_KEY, function(){
+       		right = true;
+       		Max = Max + 1;
+       		Player.pushRight(5);
+       		Player.setImage(Frames[Max]);
+     		if (Max == 3){
+       			Max = 0;
+       		}
+       	}); /// End 1st Key
+
+       	sjs.keyDown(LEFT_KEY, function(){
+       		right = false;
+       		Maxx  = Maxx  + 1;
+       		Player.pushLeft(5);
+       		Player.setImage(Drames[Maxx]);
+     		if (Maxx  == 3){
+       			Maxx  = 0;
+       		}
+       	});
+       	sjs.keyDown(UP_KEY, function(){
+       		Player.pushUp(3);
+       		if (right == true){
+       			Max = Max + 1;
+	       		Player.setImage(Frames[Max]);
+    	 		if (Max == 3){
+       				Max = 0;
+       		}else{
+       			Maxx = Maxx + 1;
+	       		Player.setImage(Drames[Maxx]);
+     			if (Maxx  == 3){
+       				Maxx  = 0;
+       				}
+       			}
+       		}
+       	});
+		
+  ///Enemies
+   setInterval(function(){
+     var speed = Math.floor(1 + Math.random()*34.1);
+     if(Math.random() > 0.5){
+       var enemy = new sjs.Image("Images/Enemy.png");
+       enemy.type = "enemy";
+       enemy.setSize(100,100);
+       enemy.noBounds = true;
+       enemy.friction = 0;
+       enemy.setGravity(.5);
+       enemy.pushRight(speed);
+       enemy.scaleSize(.5 + Math.random() * 1.2);
+       enemy.moveTo(-enemy.getWidth(), Math.random()*(enemy.getClamp().y));
+     } else {
+     var enemy = new sjs.Image("Images/Enemy.png");
+       enemy.type = "enemy";
+       enemy.setSize(100,100);
+       enemy.noBounds = true;
+       enemy.friction = 0;
+       enemy.setGravity(.5);
+       enemy.pushLeft(speed);
+       enemy.scaleSize(.5 + Math.random() * 1.2);
+       enemy.moveTo(sjs.getWidth(), Math.random()*(enemy.getClamp().y));
+     }
+   },1100);
+    sjs.left_screen.offset(-500);
+    sjs.right_screen.offset(500);
+
+     sjs.onHit("Player",["right_screen", "left_screen", "top_screen", "bottom_scream","enemy"],function(x,y){
+     	x.destroy()
+     	window.location = "GameStart.html";
+     });
+
+	WT = 0
+	sjs.keyDown(SPACE_KEY, function(){
+		if (WT == 0){
+		     alert("Paused.");
+		}
+
+	});
+
+     }//end start function
+  </script>
+  </head>
+  <body onload="start()">
+    <h1>  </h1>
+    <center>
+    </center>
+    <div id="target" style="margin:auto;background:grey;"></div>
+    <div id="output"></div>
+   </body>
+</html>
